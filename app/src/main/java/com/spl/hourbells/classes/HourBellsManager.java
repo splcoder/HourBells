@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -82,7 +81,7 @@ public class HourBellsManager {
 	public static void createAlarm( Context context ){
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService( Context.ALARM_SERVICE );
 		Intent intent = new Intent( context, HourBellsReceiver.class );
-		intent.setAction( HourBellsReceiver.ACTION_ALARM );
+		intent.setAction( HourBellsReceiver.ACTION_ALARM );	// <<<
 
 		// Pass something...:
 		// Bundle bundle = new Bundle();

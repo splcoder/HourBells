@@ -13,6 +13,9 @@ In the manifest -> application:
 		<receiver android:name=".classes.HourBellsReceiver">
 			<intent-filter>
 				<action android:name="me.proft.alarms.ACTION_ALARM"/>
+
+				<action android:name="android.intent.action.BOOT_COMPLETED"/>
+				<action android:name="android.intent.action.QUICKBOOT_POWERON" />	<!-- NOT REQUIRED -->
 			</intent-filter>
 		</receiver>
 */
