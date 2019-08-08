@@ -102,7 +102,8 @@ public class HourBellsManager {
 
 		//alarmManager.setExact( AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent );
 		if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) {
-			alarmManager.setAndAllowWhileIdle( AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent );
+			//alarmManager.setAndAllowWhileIdle( AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent );
+			alarmManager.setAndAllowWhileIdle( AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent );
 		}
 		else if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
 			// Wakes up the device in Idle Mode
