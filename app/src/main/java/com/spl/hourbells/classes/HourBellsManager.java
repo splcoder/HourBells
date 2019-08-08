@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -99,8 +100,8 @@ public class HourBellsManager {
 		}
 		setNextAlarm( calendar, getHalfHoursMode( context ) );
 
-		alarmManager.setExact( AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent );
-		/*if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) {
+		//alarmManager.setExact( AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent );
+		if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) {
 			alarmManager.setAndAllowWhileIdle( AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent );
 		}
 		else if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
@@ -109,7 +110,7 @@ public class HourBellsManager {
 		} else {
 			// Old APIs
 			alarmManager.setExact( AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent );
-		}*/
+		}
 		//Toasty.success( context, "The alarm was created", Toast.LENGTH_SHORT, true ).show();
 		setActive( context, true );
 	}
@@ -123,6 +124,7 @@ public class HourBellsManager {
 		if( pendingIntent != null ){
 			alarmManager.cancel( pendingIntent );
 			Toasty.success( context, "The alarm was canceled", Toast.LENGTH_SHORT, true ).show();
+			//setActive( context, false );
 		}
 		else{
 			Toasty.warning( context, "No alarm was set before !", Toast.LENGTH_SHORT, true ).show();

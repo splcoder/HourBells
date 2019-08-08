@@ -27,29 +27,30 @@ public class HourBellsReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive( Context context, Intent intent ) {
-		if( ACTION_ALARM.equals( intent.getAction() ) ){
-			PowerManager pm = (PowerManager) context.getSystemService( Context.POWER_SERVICE );
-			PowerManager.WakeLock wl = pm.newWakeLock( PowerManager.PARTIAL_WAKE_LOCK, "HourBellsReceiver:" );
-			// Acquire the lock
-			wl.acquire();
-			//--------------------------------------------------------------------------------------
+		if( HourBellsManager.getActive( context ) ) {
+			if (ACTION_ALARM.equals(intent.getAction())) {
+				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+				PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HourBellsReceiver:");
+				// Acquire the lock
+				wl.acquire();
+				//--------------------------------------------------------------------------------------
 
-			// You can do the processing here.
-			int[] notes = HourBellsManager.getNotes( context );
-			hourBellsPlayer = new HourBellsPlayer( context );
-			hourBellsPlayer.play( notes );
-			hourBellsPlayer.release();
-			Toasty.success( context, "Bells", Toast.LENGTH_SHORT, true ).show();
-			// Create the next alarm
-			HourBellsManager.createAlarm( context );
+				// You can do the processing here.
+				int[] notes = HourBellsManager.getNotes(context);
+				hourBellsPlayer = new HourBellsPlayer(context);
+				hourBellsPlayer.play(notes);
+				hourBellsPlayer.release();
+				Toasty.success(context, "Bells", Toast.LENGTH_SHORT, true).show();
+				// Create the next alarm
+				HourBellsManager.createAlarm(context);
 
-			//--------------------------------------------------------------------------------------
-			// Release the lock
-			wl.release();
-		}
-		else if( intent.getAction().equals( "android.intent.action.BOOT_COMPLETED" ) ){
-			// Start alarm
-			HourBellsManager.createAlarm( context );
+				//--------------------------------------------------------------------------------------
+				// Release the lock
+				wl.release();
+			} else if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+				// Start alarm
+				HourBellsManager.createAlarm(context);
+			}
 		}
 	}
 }
