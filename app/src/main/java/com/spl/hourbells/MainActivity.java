@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.spl.hourbells.classes.HourBellsManager;
+import com.spl.hourbells.classes.HourBellsPlayer;
 import com.spl.hourbells.classes.HourBellsReceiver;
 
 import es.dmoral.toasty.Toasty;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	Button btnStartAlarms, btnStopAlarms;
 	CheckBox cbShort, cbHalfHour, cbUTC;
+	Button btnCheckBell0, btnCheckBell1;
+
+	private HourBellsPlayer hourBellsPlayer = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		cbShort = findViewById( R.id.cbShort );
 		cbHalfHour = findViewById( R.id.cbHalfHour );
 		cbUTC = findViewById( R.id.cbUTC );
+		btnCheckBell0 = findViewById( R.id.btnCheckBell0 );
+		btnCheckBell1 = findViewById( R.id.btnCheckBell1 );
 
 		boolean isActive = HourBellsManager.getActive( this );
 		btnStartAlarms.setEnabled( ! isActive );
@@ -38,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 		btnStartAlarms.setOnClickListener( this );
 		btnStopAlarms.setOnClickListener( this );
+		btnCheckBell0.setOnClickListener( this );
+		btnCheckBell1.setOnClickListener( this );
 
 		cbShort.setChecked( HourBellsManager.getShortMode( this ) );
 		cbHalfHour.setChecked( HourBellsManager.getHalfHoursMode( this ) );
@@ -46,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		cbShort.setOnCheckedChangeListener( this );
 		cbHalfHour.setOnCheckedChangeListener( this );
 		cbUTC.setOnCheckedChangeListener( this );
+
+		hourBellsPlayer = new HourBellsPlayer( this );
 	}
 
 	@Override
@@ -62,6 +72,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				btnStartAlarms.setEnabled( true );
 				btnStopAlarms.setEnabled( false );
 				HourBellsManager.cancelAlarm( this );
+				break;
+			}
+			case R.id.btnCheckBell0: {
+				hourBellsPlayer.play( new int[]{ 0 } );
+				//hourBellsPlayer.release();
+				break;
+			}
+			case R.id.btnCheckBell1: {
+				hourBellsPlayer.play( new int[]{ 1 } );
+				//hourBellsPlayer.release();
 				break;
 			}
 		}
