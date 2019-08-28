@@ -4,24 +4,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.spl.hourbells.classes.HourBellsManager;
 import com.spl.hourbells.classes.HourBellsPlayer;
 import com.spl.hourbells.classes.HourBellsReceiver;
 
+import java.util.ArrayList;
+
 import es.dmoral.toasty.Toasty;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
 
 	public final MainActivity that = this;
 
 	Button btnStartAlarms, btnStopAlarms;
 	CheckBox cbShort, cbHalfHour, cbUTC;
 	Button btnCheckBell0, btnCheckBell1;
+	Spinner spinnerSoundType;
 
 	private HourBellsPlayer hourBellsPlayer = null;
 
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		cbUTC = findViewById( R.id.cbUTC );
 		btnCheckBell0 = findViewById( R.id.btnCheckBell0 );
 		btnCheckBell1 = findViewById( R.id.btnCheckBell1 );
+		spinnerSoundType = findViewById( R.id.spinnerSoundType );
 
 		boolean isActive = HourBellsManager.getActive( this );
 		btnStartAlarms.setEnabled( ! isActive );
@@ -51,11 +58,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		cbHalfHour.setChecked( HourBellsManager.getHalfHoursMode( this ) );
 		cbUTC.setChecked( HourBellsManager.getUtcMode( this ) );
 
+		int savedSoundType = HourBellsManager.getSoundType( this );
+
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_spinner_item, HourBellsManager.getSoundTypes() );
+		spinnerSoundType.setAdapter( dataAdapter );
+		spinnerSoundType.setSelection( savedSoundType );
+		spinnerSoundType.setOnItemSelectedListener( this );
+
 		cbShort.setOnCheckedChangeListener( this );
 		cbHalfHour.setOnCheckedChangeListener( this );
 		cbUTC.setOnCheckedChangeListener( this );
 
-		hourBellsPlayer = new HourBellsPlayer( this );
+		//hourBellsPlayer = new HourBellsPlayer( this );
+		hourBellsPlayer = new HourBellsPlayer( this, savedSoundType );
 	}
 
 	@Override
@@ -103,5 +118,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				break;
 			}
 		}
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+		HourBellsManager.setSoundType( this, position );
+		hourBellsPlayer = new HourBellsPlayer( this, position );
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> adapterView) {
+
 	}
 }

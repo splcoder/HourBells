@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import es.dmoral.toasty.Toasty;
@@ -40,6 +41,21 @@ public class HourBellsManager {
 	public static final String SHORT_MODE			= "short";
 	public static final String HALF_HOURS			= "hh";
 	public static final String UTC_MODE				= "utc";
+	public static final String SOUND_TYPE			= "sound";
+
+	public static final int SOUND_TIBET_BELL		= 0;
+	public static final int SOUND_CUCKOO			= 1;
+	public static final int SOUND_GUN_SILENCER		= 2;
+	public static final int SOUND_PUNCH				= 3;
+
+	public static ArrayList<String> getSoundTypes(){
+		ArrayList<String> listSoundTypes = new ArrayList<>();
+		listSoundTypes.add( "TIBET_BELL" );
+		listSoundTypes.add( "CUCKOO" );
+		listSoundTypes.add( "GUN_SILENCER" );
+		listSoundTypes.add( "PUNCH" );
+		return listSoundTypes;
+	}
 
 	public static boolean getActive( Context context ){
 		return context.getSharedPreferences( SHARED_PREFERENCES, Context.MODE_PRIVATE ).getBoolean( ACTIVE, false );
@@ -52,6 +68,9 @@ public class HourBellsManager {
 	}
 	public static boolean getUtcMode( Context context ){
 		return context.getSharedPreferences( SHARED_PREFERENCES, Context.MODE_PRIVATE ).getBoolean( UTC_MODE, false );
+	}
+	public static int getSoundType( Context context ){
+		return context.getSharedPreferences( SHARED_PREFERENCES, Context.MODE_PRIVATE ).getInt( SOUND_TYPE, SOUND_TIBET_BELL );
 	}
 
 	public static void setActive( Context context, boolean isChecked ){
@@ -76,6 +95,12 @@ public class HourBellsManager {
 		context.getSharedPreferences( SHARED_PREFERENCES, Context.MODE_PRIVATE )
 				.edit()
 				.putBoolean( UTC_MODE, isChecked )
+				.commit();
+	}
+	public static void setSoundType( Context context, int soundType ){
+		context.getSharedPreferences( SHARED_PREFERENCES, Context.MODE_PRIVATE )
+				.edit()
+				.putInt( SOUND_TYPE, soundType )
 				.commit();
 	}
 

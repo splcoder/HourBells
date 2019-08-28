@@ -37,7 +37,8 @@ public class HourBellsReceiver extends BroadcastReceiver {
 
 				// You can do the processing here.
 				int[] notes = HourBellsManager.getNotes( context );
-				hourBellsPlayer = new HourBellsPlayer( context );
+				//hourBellsPlayer = new HourBellsPlayer( context );
+				hourBellsPlayer = new HourBellsPlayer( context, HourBellsManager.getSoundType( context ) );
 				hourBellsPlayer.play( notes );
 				hourBellsPlayer.release();
 				Toasty.success( context, "Bells", Toast.LENGTH_SHORT, true ).show();

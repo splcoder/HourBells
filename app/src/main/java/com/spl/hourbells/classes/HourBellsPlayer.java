@@ -43,6 +43,40 @@ public class HourBellsPlayer {
 		}
 	}
 
+	public HourBellsPlayer( Context context, int soundType ){
+		this.context = context;
+		if( this.context != null ){
+			switch( soundType ){
+				case HourBellsManager.SOUND_TIBET_BELL: {
+					mp[ 0 ] = MediaPlayer.create( this.context, R.raw.tibet_bell_0 );
+					mp[ 1 ] = MediaPlayer.create( this.context, R.raw.tibet_bell_1 );
+					break;
+				}
+				case HourBellsManager.SOUND_CUCKOO: {
+					mp[ 0 ] = MediaPlayer.create( this.context, R.raw.cuckoo_0 );
+					mp[ 1 ] = MediaPlayer.create( this.context, R.raw.cuckoo_1 );
+					break;
+				}
+				case HourBellsManager.SOUND_GUN_SILENCER: {
+					mp[ 0 ] = MediaPlayer.create( this.context, R.raw.gun_silencer_2 );
+					mp[ 1 ] = MediaPlayer.create( this.context, R.raw.gun_silencer_1 );
+					break;
+				}
+				case HourBellsManager.SOUND_PUNCH: {
+					mp[ 0 ] = MediaPlayer.create( this.context, R.raw.upper_cut );
+					mp[ 1 ] = MediaPlayer.create( this.context, R.raw.jab );
+
+					//mp[ 0 ] = MediaPlayer.create( this.context, R.raw.right_cross );
+					//mp[ 1 ] = MediaPlayer.create( this.context, R.raw.left_hook );
+					break;
+				}
+			}
+
+			mp[ 0 ].setVolume( 1.0f, 1.0f );
+			mp[ 1 ].setVolume( 1.0f, 1.0f );
+		}
+	}
+
 	private void stop( MediaPlayer mediaPlayer ){
 		mediaPlayer.stop();
 		try {
