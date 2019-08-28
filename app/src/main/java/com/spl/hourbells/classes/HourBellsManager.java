@@ -47,6 +47,8 @@ public class HourBellsManager {
 	public static final int SOUND_CUCKOO			= 1;
 	public static final int SOUND_GUN_SILENCER		= 2;
 	public static final int SOUND_PUNCH				= 3;
+	public static final int SOUND_CAT				= 4;
+	public static final int SOUND_DOG				= 5;
 
 	public static ArrayList<String> getSoundTypes(){
 		ArrayList<String> listSoundTypes = new ArrayList<>();
@@ -54,6 +56,8 @@ public class HourBellsManager {
 		listSoundTypes.add( "CUCKOO" );
 		listSoundTypes.add( "GUN_SILENCER" );
 		listSoundTypes.add( "PUNCH" );
+		listSoundTypes.add( "CAT" );
+		listSoundTypes.add( "DOG" );
 		return listSoundTypes;
 	}
 

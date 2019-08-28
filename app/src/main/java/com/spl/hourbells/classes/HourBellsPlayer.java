@@ -53,7 +53,7 @@ public class HourBellsPlayer {
 					break;
 				}
 				case HourBellsManager.SOUND_CUCKOO: {
-					mp[ 0 ] = MediaPlayer.create( this.context, R.raw.cuckoo_0 );
+					mp[ 0 ] = MediaPlayer.create( this.context, R.raw.cuco );
 					mp[ 1 ] = MediaPlayer.create( this.context, R.raw.cuckoo_1 );
 					break;
 				}
@@ -68,6 +68,16 @@ public class HourBellsPlayer {
 
 					//mp[ 0 ] = MediaPlayer.create( this.context, R.raw.right_cross );
 					//mp[ 1 ] = MediaPlayer.create( this.context, R.raw.left_hook );
+					break;
+				}
+				case HourBellsManager.SOUND_CAT: {
+					mp[ 0 ] = MediaPlayer.create( this.context, R.raw.cat_0 );
+					mp[ 1 ] = MediaPlayer.create( this.context, R.raw.cat_1 );
+					break;
+				}
+				case HourBellsManager.SOUND_DOG: {
+					mp[ 0 ] = MediaPlayer.create( this.context, R.raw.dog_0 );
+					mp[ 1 ] = MediaPlayer.create( this.context, R.raw.dog_1 );
 					break;
 				}
 			}
