@@ -41,7 +41,7 @@ public class HourBellsReceiver extends BroadcastReceiver {
 				hourBellsPlayer = new HourBellsPlayer( context, HourBellsManager.getSoundType( context ) );
 				hourBellsPlayer.play( notes );
 				hourBellsPlayer.release();
-				Toasty.success( context, "Bells", Toast.LENGTH_SHORT, true ).show();
+				//Toasty.success( context, "Bells", Toast.LENGTH_SHORT, true ).show();
 				// Create the next alarm
 				HourBellsManager.createAlarm( context );
 
